@@ -1,0 +1,47 @@
+
+body{
+  overflow: hidden;
+  background-color: #F2EFE7;
+  letter-spacing: 1px;
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: block;
+  width: 20vw; /* Full width (cover the whole page) */
+  height: 90vh; /* Full height (cover the whole page) */
+  margin: 5vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(250,250,250,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  text-align: center;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black,
+              inset 0 1px 0 1px black,
+              0 0 0 1px black,
+              inset 0 0 0 1px black;
+  line-height: 32px;
+  border-radius: 2px;
+}
+
+.selected{
+  opacity: 0.9;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 80px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  opacity: 0.6;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 6;
+}

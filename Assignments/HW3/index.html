@@ -1,0 +1,85 @@
+<html>
+
+<head>
+  <title id="title">
+  Experiment
+  </title>
+<meta charset="UTF-8">
+<meta authors = "Daniel McDonough & Nathan Dennler">
+<link href="./styles/style.css" rel="stylesheet" type="text/css">
+</head>
+
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-array.v2.min.js"></script>
+  <script src="./scripts/chartMaker.js"></script>
+  <script src="./scripts/dataHandler.js"></script>
+
+
+  <body class="flex-container-col">
+    <!--Styling based on: https://uxplanet.org/designing-more-efficient-forms-structure-inputs-labels-and-actions-e3a47007114f -->
+  <div id="demographics" class="flex-container-col">
+      <div class = "flex-container-row-demo">
+          <h1>Before we begin, please enter the following demographic information:</h1>
+      </div>
+
+      <div class = "flex-container-col-demo">
+
+
+
+      <!--AGE Input-->
+
+      <h2>Age<span class="astrisk">*</span></h2>
+      <input type="text" id="age"></input>
+      <div></div><!-- fake br tag-->
+
+      <!--RACE Input-->
+
+      <!-- Based on categories from https://www.census.gov/topics/population/race/about.html-->
+      <h2>Race / Ethnicity<span class="astrisk">*</span></h2>
+      <select id="dropdown">
+         <option name="race" value="indian" selected>American Indian or Alaska Native</option>
+         <option name="race" value="asian">Asian</option>
+         <option name="race" value="black">Black or African American</option>
+         <option name="race" value="hawaiian">Native Hawaiian or Pacific Islander</option>
+         <option name="race" value="white">White</option>
+         <option name="race" value="other">Other</option>
+       </select>
+      <div></div> <!-- fake br tag-->
+
+    <!--SEX Input -->
+
+      <h2>Sex<span class="astrisk">*</span></h2>
+      <div class="flex-container-row">
+        <input type="radio" name="gender" value="male"><label class="radiobutton">Male</label></input>
+        <input type="radio" name="gender" value="female"><label class="radiobutton">Female</label></input>
+        <input type="radio" name="gender" value="other"><label class="radiobutton">Other</label></input>
+      </div>
+    </div>
+
+      <!--LGBT Input-->
+        <h3>Do you consider yourself a member of the LGBT community?<span class="astrisk">*</span></h3>
+    <div class="flex-container-row">
+        <input type="radio" name="sexuality" value="yes"><label class="radiobutton">Yes</label></input>
+        <input type="radio" name="sexuality" value="no"><label class="radiobutton">No</label></input>
+        <input type="radio" name="sexuality" value="decline"><label class="radiobutton">Decline to State</label></input>
+     </div>
+
+     <!--Seperator -->
+     <div class="horizontalLine">     </div>
+
+
+     <input type="button" id="demographicbutton" class="button-demo" onclick="logDemographicData()" value="Next"></input>
+
+ </div>
+
+   <div id = "chartcontainer"></div>
+   <div id = "flex-container-row" class="flex-container-row"></div>
+
+</body>
+
+<script>
+
+</script>
+
+</html>

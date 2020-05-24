@@ -1,0 +1,182 @@
+<html>
+<head>
+  <title>
+    Assignmment 4
+  </title>
+  <meta charset="UTF-8">
+  <meta authors = "Daniel McDonough">
+  <!-- <link href="./style.css" rel="stylesheet" type="text/css"> -->
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+  <body>
+    <!-- <script src="./tsne.js"></script> -->
+    <script src="./factory-sets.js"></script>
+    <script src="./format-data.js"></script>
+    <!-- <script src="./radarchart.js"></script> -->
+<script>
+
+
+//convert a primary type to a corrosponding hex color
+function type2Color(type){
+  console.log(type)
+  switch(type) {
+  case "Grass":
+    return "#78C850";
+    break;
+  case "Water":
+    return "#6890F0";
+    // code block
+    break;
+  case "Fire":
+    return "#F08030";
+    // code block
+    break;
+  case "Electric":
+    return "#F8D030";
+    // code block
+    break;
+  case "Flying":
+    return "#A890F0";
+    // code block
+    break;
+  case "Bug":
+    return "#A8B820";
+    // code block
+    break;
+  case "Dark":
+    return "#705848";
+    // code block
+    break;
+  case "Psychic":
+    return "#F85888";
+    // code block
+    break;
+  case "Fighting":
+    return "#C03028";
+    // code block
+    break;
+  case "Rock":
+    return "#B8A038";
+    // code block
+    break;
+  case "Ground":
+    return "#E0C068";
+    // code block
+    break;
+  case "Steel":
+    return "#B8B8D0";
+    // code block
+    break;
+  case "Normal":
+    return "#A8A878";
+    // code block
+    break;
+  case "Ghost":
+    return "#705898";
+    // code block
+    break;
+  case "Poison":
+    return "#A040A0";
+    // code block
+    break;
+  case "Fairy":
+    return "#EE99AC";
+    // code block
+    break;
+  case "Dragon":
+    return "#7038F8";
+    // code block
+    break;
+  case "Ice":
+    return "#98D8D8";
+    // code block
+    break;
+
+  default:
+    return "#FFFFFF";
+
+    // code block
+}
+}
+
+
+//Load the data
+var data = d3.entries(BattlePokedex);
+var tier = d3.entries(tierlist);
+
+//concatinate the two datsets by the Tier attribute
+var found = false;
+for(var i =0; i<tier.length;i++){
+  //console.log("looking for: "+tier[i].key);
+  for(var j=0;j<data.length;j++){
+    if(tier[i].key == data[j].key){
+      found = true;
+      if(tier[i].value.tier == "LC Uber"){
+        tier[i].value.tier = "LCUber"
+      }
+      data[j].value["tier"] =  tier[i].value.tier;
+      break;
+    }
+  }
+  if(found){
+    found =false;
+  }
+  else{
+    console.log("BAD DATA FOUND: "+tier[i].key)
+    found = false;
+  }
+}
+
+var baseStats = [];
+var pokemon_names = [];
+var pokemon_types = [];
+var pokemon_tiers = [];
+
+//console.log(BattlePokedex)
+for(var i =0; i<data.length;i++){
+  pokemon_names.push(data[i].key) //push the pokemon names
+  pokemon_types.push(type2Color(data[i].value.types[0])) //push color codes
+  pokemon_tiers.push(data[i].value.tier) //push tier codes
+
+  //push the base stats
+  var stats_array = []
+  var stats = d3.entries(data[i].value.baseStats)
+  for(var j=0;j<stats.length;j++){
+    stats_array.push(stats[j].value)
+  }
+  baseStats.push(stats_array)
+}
+
+console.log(baseStats)
+
+//combine all the wanted data
+for (var j =  0; j < pokemon_names.length; j++){
+    pokemon_names[j].push(pokemon_types[j]);
+    pokemon_names[j].push(pokemon_tiers[j]);
+    pokemon_names[j].push(baseStats[j]);
+}
+
+
+function saveCSV(pokemon_names){
+  var test_array = pokemon_names;
+
+
+  var csvContent = "data:text/csv;charset=utf-8,";
+
+    test_array.forEach(function(infoArray, index){
+      dataString = infoArray.join(",");
+      csvContent += dataString+ "\n";
+    })
+
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+}
+
+
+saveCSV(pokemon_names);
+
+
+</script>
+  </body>
+</html>

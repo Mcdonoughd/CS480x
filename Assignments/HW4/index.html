@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<head>
+  <title>
+    Assignmment 4
+  </title>
+  <meta charset="UTF-8">
+  <meta authors = "Daniel McDonough">
+
+  <link href="./style.css" rel="stylesheet" type="text/css">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='https://raw.githack.com/karpathy/tsnejs/master/tsne.js'></script>
+
+</head>
+<body>
+<div class="container">
+  <svg id="mainplot"></svg>
+</div>
+<div id="overlay">
+  <h1>Pokemon t-SNE</h1>
+  Search a Pokemon:
+  <input type="text" id="search_input" value="pikachu"></input>
+  <input type="button" id="search_btn" class="btn"onclick="search_pokemon()" value="Search"></input><br/>
+  <label class="dropdown" >Select by Tier: </label>
+  <select id="myDropdown" class="btn" name="Tiers" onchange="validate()">
+     <option value="Untiered">Untiered</option>
+     <option value="LC">LC</option>
+     <option value="LCUber">LCUber</option>
+     <option value="NFE">NFE</option>
+     <option value="PU">PU</option>
+     <option value="PUBL">PUBL</option>
+     <option value="NU">NU</option>
+     <option value="NUBL">NUBL</option>
+     <option value="RU">RU</option>
+     <option value="RUBL">RUBL</option>
+     <option value="UU">UU</option>
+     <option value="UUBL">UUBL</option>
+     <option value="OU">OU</option>
+     <option value="Uber">Uber</option>
+  </select><br/>
+  <h2 id="pokemon_name"></h2>
+  <h2 id="pokemon_tier"></h2>
+  <img id="pokemon_image" style="width:200px;height:200px;display:none;"/>
+  <div id="chart"></div>
+</div>
+
+<script src="./radarchart.js"></script>
+<script>
+    const width = window.innerWidth,
+        height = window.innerHeight,
+        margin = 40,
+        centerx = d3.scaleLinear()
+          .range([width / 2 - height / 2 + margin, width / 2 + height / 2 - margin]),
+        centery = d3.scaleLinear()
+          .range([margin, height - margin]),
+        image = document.getElementById("pokemon_image"),
+        name = document.getElementById("pokemon_name"),
+        tier = document.getElementById("pokemon_tier");
+
+    d3.csv('pokemon.csv', function (pokemon) {
+
+        const data = pokemon
+            .map((d, i) => [+d['HP'],+d['Attack'],+d['Defense'],+d['SPAttack'],+d['SPDefense'],+d['Speed'],]);
+        const fulldata = pokemon
+            .map((d, i) => [d['Name'],d['Color'],d['Tier'],+d['HP'],+d['Attack'],+d['Defense'],+d['SPAttack'],+d['SPDefense'],+d['Speed'],]);
+
+        const svg = d3.select("#mainplot")
+            .attr("width", width)
+            .attr("height", height);
+
+
+            svg.append("g")
+            .selectAll("circle")
+            .data(fulldata)
+            .enter()
+            .append("circle")
+              .attr("cx", function(d) { return 0; })
+              .attr("cy", function(d) { return 0; })
+              .attr("id",function(d){return d[0]}) //name
+              .attr("fill", function(d) { return d[1] }) //type
+              .attr("class",function(d){return d[2]}) //tier
+              .attr('stats',function(d){return [d[3],d[4],d[5],d[6],d[7],d[8]]}) //base stats
+              .style("opacity",0.7)
+              .attr("r", 8)
+              .on("mouseover", function(d) {
+                  console.log(d)
+                    div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    div.html(d[0])
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                    drawRadarChart([d[3],d[4],d[5],d[6],d[7],d[8]])
+                    image.style.display="inline";
+                    name.style.opacity = 1;
+                    tier.style.opacity = 1;
+                    name.innerHTML= d[0].charAt(0).toUpperCase() + d[0].slice(1);;
+                    tier.innerHTML=d[2];
+                    if(d[0]!= "meltan" && d[0] != "melmetal"){
+                     image.src="https://play.pokemonshowdown.com/sprites/xyani/"+d[0]+".gif";
+                    }
+                    else{
+                      image.src="https://img.pokemondb.net/artwork/large/"+d[0]+".jpg";
+                    }
+                    })
+                .on("mouseout", function() {
+                    div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                    image.style.display="none";
+                    d3.select('#radarplot').remove()
+                    name.style.opacity = 0;
+                    tier.style.opacity = 0;
+                });
+
+
+        var view = svg.selectAll("circle")
+        var zoom = d3.zoom()
+                  .scaleExtent([1, 5])
+                  .translateExtent([
+                    [-500, -500],
+                    [width + 200, height + 300]
+                  ])
+                  .on("zoom", zoomed);
+
+          svg.call(zoom);
+
+          function zoomed() {
+            view.attr("transform", d3.event.transform);
+          }
+
+
+          var div = d3.select("body").append("div")
+              .attr("class", "tooltip")
+              .style("opacity", 0);
+
+
+        const model = new tsnejs.tSNE({
+            dim: 2,
+            perplexity: 30,
+            epsilon: 10,
+        });
+
+        model.initDataRaw(data);
+
+        const forcetsne = d3.forceSimulation(
+          data.map(d => (d.x = width / 2, d.y = height / 2, d))
+        )
+            .alphaDecay(0.005)
+            .alpha(0.1)
+            .force('tsne', function (alpha) {
+                // every time you call this, solution gets better
+                model.step();
+
+                // Y is an array of 2-D points that you can plot
+                let pos = model.getSolution();
+
+
+
+                centerx.domain([d3.min(pos, function(d) { return d[0]; }), d3.max(pos, function(d) { return d[0]; })]);
+                centery.domain([d3.min(pos, function(d) { return d[1]; }), d3.max(pos, function(d) { return d[1]; })]);
+
+                data.forEach((d, i) => {
+                    d.x += alpha * (centerx(pos[i][0]) - d.x);
+                    d.y += alpha * (centery(pos[i][1]) - d.y);
+                });
+
+
+
+            })
+            .force('collide', d3.forceCollide().radius(d => 1.5))
+            .on('tick', function () {
+                //HERE update the world to
+
+                let nodes = data.map((d, i) => {
+                //  console.log(fulldata[i])
+              //  console.log(d.x);
+                    return {
+                        x: d.x,
+                        y: d.y,
+                        r: 5,
+                        id: fulldata[i][0],
+                        color: fulldata[i][1],
+                        class: fulldata[i][2]
+                    };
+                });
+
+                draw(svg, nodes);
+            });
+
+
+
+        function draw(canvas, nodes) {
+
+            for (var i = 0, n = nodes.length; i < n; ++i) {
+                var node = nodes[i];
+                svg.select("#"+node.id)
+                .transition()
+                  .attr("cx", function(d) { return parseFloat(node.x); })
+                  .attr("cy", function(d) { return parseFloat(node.y); })
+
+
+            }
+        }
+    });
+
+
+    //determines the selection on the dropdown menu
+    function validate(){
+     var ddl = document.getElementById("myDropdown");
+     var selectedValue = ddl.options[ddl.selectedIndex].value;
+     console.log(selectedValue)
+      d3.selectAll('circle').style("opacity",0.2);
+
+       var tierlist = document.getElementsByClassName(selectedValue);
+       for(var p = 0; p < tierlist.length;p++){
+         tierlist[p].style.opacity = "1";
+       }
+       image.style.display="none";
+       d3.select("#radarplot").remove();
+    }
+
+    //determines the selection on the search menu
+    function search_pokemon(){
+      var pokemon = document.getElementById('search_input').value;
+      console.log(pokemon)
+      var selected = document.getElementById(pokemon);
+      console.log(selected)
+      if(typeof selected !== 'undefined'){
+        d3.selectAll('circle').style("opacity",0.2);
+        selected.style.opacity = "1";
+         image.style.display="inline";
+        image.src="https://play.pokemonshowdown.com/sprites/xyani/"+pokemon+".gif";
+         d3.select("#radarplot").remove();
+          drawRadarChart(JSON.parse("[" + selected.getAttribute("stats") + "]"));
+        //TODO add zoom feature here
+      }
+      else{
+        console.log("" + pokemon + " DOESNT EXIST")
+      }
+    }
+
+    //draws the radar chart of the pokemon
+    function drawRadarChart(d){
+
+      console.log(d)
+
+      var bs = [
+          [
+            {"area": "HP ", "value": d[0]},
+            {"area": "Attack", "value": d[1]},
+            {"area": "Defense ", "value": d[2]},
+            {"area": "SP. Attack ", "value": d[3]},
+            {"area": "SP. Defense ", "value": d[4]},
+            {"area": "Speed ", "value": d[5]}
+          ]
+        ]
+
+        var width = 300,
+            height = 300;
+
+        // Config for the Radar chart
+        var config = {
+            w: width/2,
+            h: height/2,
+            maxValue: 250,
+            levels: 5,
+            ExtraWidthX: 300
+        }
+
+        //Call function to draw the Radar chart
+
+        RadarChart.draw("#chart", bs, config);
+
+        var rplot = d3.select('#radarplot')
+          .attr("width", width)
+          .attr("height", height);
+    }
+
+
+</script>
+
+</body>

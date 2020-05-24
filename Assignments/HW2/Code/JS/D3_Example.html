@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>
+D3 Exercise
+</title>
+</head>
+<meta charset="utf-8">
+
+<style type="text/css">
+
+
+
+</style>
+<body>
+
+<!-- Load in the d3 library -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script>
+
+// set the dimensions and margins of the graph
+var margin = {top: 20, right: 20, bottom: 80, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
+
+var x = d3.scaleLinear()
+    .range([0, width]);
+var y = d3.scaleLinear()
+    .range([height, 0]);
+var r = d3.scaleLinear()
+    .range([0, 0.001]);
+
+var color = d3.scaleOrdinal() // D3 Version 4
+      .domain(["ford", "mercedes", "honda","bmw","toyota"])
+      .range(["rgba(243, 73, 73, 0.5)", "rgba(243, 238, 73, 0.5)" , "rgba(87, 243, 73, 0.5)","rgba(73, 212, 243, 0.5)","rgba(90, 73, 243, 0.5)"]);
+
+// append the svg object to the body of the page
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//Read the data
+d3.csv("cars-sample.csv",function(data) {
+	console.log("CSV LOADED");
+  if(data.Weight!="NA" && data.Manufacturer!="NA" && data.MPG!="NA"){
+    return {
+        x : data.Weight,
+        Manufacturer : data.Manufacturer,
+        y : data.MPG
+      };
+  }
+}).then(function(data) {
+  //console.log(data[0]);
+  console.log(data)
+  // Compute the scales’ domains.
+  x.domain(d3.extent(data, function(d) { return d.x; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.y; })).nice();
+
+  // Add the x-axis.
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  // Add the y-axis.
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(d3.axisLeft(y));
+
+  // Add the points!
+  svg.selectAll(".point")
+      .data(data)
+      .enter().append("svg:circle")
+      .attr("cy", function (d) { return y(d.y); } )
+      .attr("cx", function (d,i) { return x(d.x); } )
+      .attr("r", function(d,i){ return r(d.x);})
+      .style("fill", function(d, i){return color(d.Manufacturer);});
+}).catch(function(error){
+     // handle error
+  });
+
+
+    svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", width/2 + margin.left)
+        .attr("y", height + margin.top + 20)
+        .text("Weight");
+
+    // Y axis label:
+    svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -margin.left + 20)
+        .attr("x", -margin.top - height/2 + 20)
+        .text("MPG")
+
+
+</script>
+</body>
+</html>

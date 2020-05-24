@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1548612896195.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2693689086",
+    "id" : "E0BB8B8B",
+    "lastKnownWriteTime" : 1548620778,
+    "last_content_update" : 1548620778601,
+    "path" : "~/Desktop/DataViz/Assignments/Assignment2/Code/R/htmlwidget_exercise.R",
+    "project_path" : "htmlwidget_exercise.R",
+    "properties" : {
+        "cursorPosition" : "10,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

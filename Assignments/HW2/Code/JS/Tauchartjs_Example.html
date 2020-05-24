@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>
+Taucharts Exercise
+</title>
+</head>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/taucharts/latest/tauCharts.min.css">
+<body>
+
+<div id='scatter'>
+  <script src="//cdn.jsdelivr.net/d3js/3.5.17/d3.min.js" charset="utf-8"></script>
+  <script src="//cdn.jsdelivr.net/underscorejs/latest/underscore-min.js" type="text/javascript"></script>
+  <script src="//cdn.jsdelivr.net/taucharts/latest/tauCharts.min.js" type="text/javascript"></script>
+<script>
+
+d3.csv('cars-sample.csv', function(row){
+
+  if(row.Weight!="NA" && row.Manufacturer!="NA" && row.MPG!="NA"){
+    return {
+        Weight : +row.Weight, //The + is for type conversion form string to int
+        Manufacturer : row.Manufacturer,
+        MPG : +row.MPG,
+      };
+  }
+}, function(data){
+
+//the order of which these two functions interact is fucked
+//you can t use a call back in the above function
+console.log(data);
+var chart = new tauCharts.Chart({
+
+  guide: {
+             x:{min: 1500, max: 5000, nice: true, label:'Weight'},
+             y:{min: 10, max: 50, nice: true, label:'MPG'},
+             padding:{b:70,l:70,t:10,r:10},
+             showGridLines:'xy',
+
+           },
+  data:      data,
+  dimensions: {
+        Weight    : { type: 'measure' },
+        MPG     : { type: 'measure' },
+        Manufacturer  : { type: 'category' }
+    },
+  type:     'scatterplot',
+  x:        'Weight',
+  y:        'MPG',
+  size:     'Weight',
+  color:    'Manufacturer',
+  plugins:  [
+    tauCharts.api.plugins.get('tooltip')(),
+    tauCharts.api.plugins.get('legend')(),
+  //tauCharts.api.plugins.get('quick-filter')(),
+  //tauCharts.api.plugins.get('trendline')(),
+  ],
+
+  settings: {},
+});
+chart.renderTo('#scatter');
+})
+
+</script>
+</body>
+</html>
