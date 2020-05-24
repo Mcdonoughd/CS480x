@@ -16,6 +16,7 @@ Books:
 Class Data:
 &nbsp;	  Set of notes and lecture slides
 
+
 Cool Papers:
 &nbsp;	  A sSet of published papers on data visualizations
 
