@@ -1,0 +1,46 @@
+﻿Lesson 3 & 5:
+
+Designing process:
+	intro
+		creating something new to solve a problem
+		Not just making things pretty
+		Form & Function
+		define and enumerate the data vars and tasks in the domain
+		(remember double diamond)
+	
+	When do we design?
+		“Wicked” problem: ex climate change
+		look up: human centered design and user centered design
+		
+	Problem v Technique driven
+
+	problem driven:
+		top-down
+		design a solution for efficientcy
+	
+	Technique driven:
+		bottom up
+		invent new idioms 
+		classify and compare against other idioms and algorithms
+		
+
+	Personals
+
+		Note who will be looking at the chart/VIZ (Personals)
+
+	Nested Model WOW)
+	
+
+Lesson 5: Visual Mapping and Channels
+
+	Just noticeable difference – smallest difference necessary to perceive two stimuli as being different.
+
+	Perceived diff. = (change in intensity/actual intensity of stimuli) * perception correlation 
+
+	bright room = high intensity; higher light color is needed to balance
+
+Targeting = Eye-Movement
+
+
+	Perception: 
+	 
