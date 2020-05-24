@@ -1,0 +1,255 @@
+/*Style.css by Daniel McDonough*/
+
+/*Body*/
+body{
+  -webkit-animation: BGAnimation 120s ease infinite;
+  -moz-animation: BGAnimation 120s ease infinite;
+  animation: BGAnimation 120s ease infinite;
+  background: #000046; /* fallback for old browsers */
+  background: linear-gradient(136deg, #000046, #1cb5e0);
+  background-size: 400% 400%;
+  display:block;
+  font-family: 'Raleway', sans-serif;
+  margin: 0;
+  overflow: hidden;
+  position:relative;
+ }
+
+/*Body Animation*/
+ @-webkit-keyframes BGAnimation {
+     0%{background-position:10% 0%}
+     50%{background-position:91% 100%}
+     100%{background-position:10% 0%}
+ }
+ @keyframes BGAnimation {
+     0%{background-position:10% 0%}
+     50%{background-position:91% 100%}
+     100%{background-position:10% 0%}
+ }
+
+ /*Logo Box*/
+ .inner-box{
+   position: absolute;
+ }
+
+/*Center Text*/
+ .center {
+     opacity: 0.8;
+     position: absolute;
+     width: 50vw;
+     height: 50vh;
+     top: 40vh;
+     left: 25vw;
+     margin-left: -50px; /* margin is -0.5 * dimension */
+     margin-top: -25px;
+     color: white;
+     text-align: center;
+     font-size: 1.5vw;
+ }​
+
+ /*PS5 Logo*/
+#img{
+   height: 5vh;
+   margin-top: 5vh;
+   margin-left: 5vw;
+   min-width: 250px;
+   min-height: 80px;
+   opacity: 0.85;
+   width: 10vw;
+ }
+
+
+
+
+/*TRIANGLES*/
+.triangle1{
+  -webkit-animation:squareAnimation1 80s linear infinite;
+   animation:squareAnimation1 80s linear infinite;
+}
+
+@-webkit-keyframes triangleAnimation1 { 100% { transform:translate(-150vw, -40vh); } }
+@keyframes triangleAnimation1 { 100% {  transform:translate(-150vw, -40vh); } }
+
+.triangle2{
+  -webkit-animation:squareAnimation2 120s linear infinite;
+   animation:squareAnimation2 120s linear infinite;
+}
+@-webkit-keyframes triangleAnimation1 { 100% { transform:translate(-250vw, 20vh); } }
+@keyframes triangleAnimation1 { 100% {  transform:translate(-250vw, 20vh); } }
+
+.triangle3{
+  -webkit-animation:squareAnimation3 100s linear infinite;
+   animation:squareAnimation3 100s linear infinite;
+}
+@-webkit-keyframes triangleAnimation1 { 100% { transform:translate(-200vw, 40vh); } }
+@keyframes triangleAnimation1 { 100% {  transform:translate(-200vw, 40vh); } }
+
+.triangle4{
+  -webkit-animation:squareAnimation4 150s linear infinite;
+   animation:squareAnimation4 150s linear infinite;
+}
+@-webkit-keyframes triangleAnimation4 { 100% { transform:translate(-180vw, 10vh); } }
+@keyframes triangleAnimation4 { 100% {  transform:translate(-180vw, 10vh); } }
+
+.triangle5{
+  -webkit-animation:squareAnimation5 145s linear infinite;
+   animation:squareAnimation5 145s linear infinite;
+}
+@-webkit-keyframes triangleAnimation5 { 100% { transform:translate(-220vw, -30vh); } }
+@keyframes triangleAnimation5 { 100% {  transform:translate(-220vw, -30vh); } }
+
+
+
+
+/*SQUARES*/
+
+.square1{
+  -webkit-animation:squareAnimation1 80s linear infinite;
+   animation:squareAnimation1 80s linear infinite;
+}
+
+@-webkit-keyframes squareAnimation1 { 100% { transform:translate(-150vw, -40vh); } }
+@keyframes squareAnimation1 { 100% {  transform:translate(-150vw, -40vh); } }
+
+.square2{
+  -webkit-animation:squareAnimation2 150s linear infinite;
+  animation:squareAnimation2 150s linear infinite;
+}
+@-webkit-keyframes squareAnimation2 { 100% { transform:translate(-200vw, -50vh); } }
+@keyframes squareAnimation2 { 100% {  transform:translate(-200vw, -50vh); } }
+
+.square3{
+  -webkit-animation:squareAnimation3 100s linear infinite;
+   animation:squareAnimatio3 100s linear infinite;
+}
+@-webkit-keyframes squareAnimation3 { 100% { transform:translate(-150vw, -50vh); } }
+@keyframes squareAnimation3 { 100% {  transform:translate(-150vw, -10vh); } }
+
+.square4{
+  -webkit-animation:squareAnimation4 85s linear infinite;
+   animation:squareAnimation4 85s linear infinite;
+}
+@-webkit-keyframes squareAnimation4 { 100% { transform:translate(-200vw, 30vh); } }
+@keyframes squareAnimation4 { 100% {  transform:translate(-200vw, 30vh); } }
+
+.square5{
+  -webkit-animation:squareAnimation5 120s linear infinite;
+   animation:squareAnimatio5 120s linear infinite;
+}
+@-webkit-keyframes squareAnimation5 { 100% { transform:translate(-300vw, -20vh); } }
+@keyframes squareAnimation5 { 100% {  transform:translate(-300vw, -20vh); } }
+
+
+
+
+
+
+
+/*CIRCLES*/
+
+.circle1{
+  -webkit-animation:circlesAnimation1 90s linear infinite;
+   animation:circlesAnimation1 90s linear infinite;
+}
+@-webkit-keyframes circlesAnimation1 {
+  100% { transform:translate(-180vw, -10vh);  }
+}
+@keyframes circlesAnimation1 {
+  100% { transform:translate(-180vw, -10vh);  }
+}
+.circle2{
+  -webkit-animation:circlesAnimation2 120s linear infinite;
+   animation:circlesAnimation2 120s linear infinite;
+}
+@-webkit-keyframes circlesAnimation2 {
+  100% { transform:translate(-150vw, -30vh);  }
+}
+@keyframes circlesAnimation2 {
+  100% { transform:translate(-150vw, -30vh);  }
+}
+.circle3{
+  -webkit-animation:circlesAnimation3 120s linear infinite;
+   animation:circlesAnimation3 120s linear infinite;
+}
+@-webkit-keyframes circlesAnimation3 {
+  100% { transform:translate(-150vw, -50vh);  }
+}
+@keyframes circlesAnimation3 {
+  100% { transform:translate(-150vw, -50vh);  }
+}
+.circle4{
+  -webkit-animation:circlesAnimation4 180s linear infinite;
+   animation:circlesAnimation4 180s linear infinite;
+}
+@-webkit-keyframes circlesAnimation4 {
+  100% { transform:translate(-270vw, 60vh);  }
+}
+@keyframes circlesAnimation4 {
+  100% { transform:translate(-250vw, 60vh);  }
+}
+.circle5{
+  -webkit-animation:circlesAnimation4 200s linear infinite;
+   animation:circlesAnimation4 200s linear infinite;
+}
+@-webkit-keyframes circlesAnimation5 {
+  100% { transform:translate(-150vw, 80vh);  }
+}
+@keyframes circlesAnimation4 {
+  100% { transform:translate(-150vw, 80vh);  }
+}
+
+
+/*CROSSES*/
+
+.cross1{
+  -webkit-animation:crossAnimation1 200s linear infinite;
+   animation:crossAnimation1 200s linear infinite;
+}
+@-webkit-keyframes crossAnimation1 {
+  100% { transform:translate(-150vw, 20vh); }
+}
+@keyframes crossAnimation1 {
+  100% { transform:translate(-150vw, 20vh); }
+}
+
+
+.cross2{
+  -webkit-animation:crossAnimation2 180s linear infinite;
+   animation:crossAnimation2 180s linear infinite;
+}
+@-webkit-keyframes crossAnimation2 {
+  100% { transform:translate(-150vw, -80vh); }
+}
+@keyframes crossAnimation2 {
+  100% { transform:translate(-150vw, -80vh); }
+}
+.cross3{
+  -webkit-animation:crossAnimation1 175s linear infinite;
+   animation:crossAnimation1 175s linear infinite;
+}
+@-webkit-keyframes crossAnimation4 {
+  100% { transform:translate(-170vw, -20vh); }
+}
+@keyframes crossAnimation4 {
+  100% { transform:translate(-170vw, -20vh); }
+}
+.cross4{
+  -webkit-animation:crossAnimation4 180s linear infinite;
+   animation:crossAnimation4 180s linear infinite;
+}
+@-webkit-keyframes crossAnimation4 {
+  100% { transform:translate(-180vw, 80vh); }
+}
+@keyframes crossAnimation4 {
+  100% { transform:translate(-180vw, 80vh); }
+}
+.cross5{
+  -webkit-animation:crossAnimation5 150s linear infinite;
+   animation:crossAnimation5 150s linear infinite;
+}
+@-webkit-keyframes crossAnimation5 {
+  100% { transform:translate(-150vw, 60vh); }
+}
+@keyframes crossAnimation5 {
+  100% { transform:translate(-150vw, 60vh); }
+}
